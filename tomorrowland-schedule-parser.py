@@ -37,7 +37,7 @@ def parse_day(url):
         stage_titles[title['data-id']] = title.find('img', class_='stage-icon')['title']
 
     stages = soup.find_all('div', class_='stage')
-    return [parse_stage(stage, stage_titles, day) for stage in stages]
+    return (parse_stage(stage, stage_titles, day) for stage in stages)
 
 
 def parse_stage(stage, titles, day):
@@ -45,7 +45,7 @@ def parse_stage(stage, titles, day):
     stage_id = stage['data-id']
     stage_title = titles[stage_id]
 
-    return [parse_timeslot(timeslot, day, stage_title) for timeslot in timeslots]
+    return (parse_timeslot(timeslot, day, stage_title) for timeslot in timeslots)
 
 
 def parse_timeslot(timeslot, day, stage):
@@ -66,7 +66,7 @@ def parse_time(day, time):
 
 
 def main():
-    sets = [parse_day(day) for day in days]
+    sets = (parse_day(day) for day in days)
 
     # completely flatten the day[stage[set]] nested list structure
     flat_sets = chain.from_iterable((chain.from_iterable(sets)))
