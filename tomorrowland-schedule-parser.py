@@ -67,7 +67,6 @@ def parse_time(day, time):
 
 def main():
     sets = [parse_day(day) for day in days]
-    sets
 
     # completely flatten the day[stage[set]] nested list structure
     flat_sets = chain.from_iterable((chain.from_iterable(sets)))
